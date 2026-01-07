@@ -1,0 +1,4 @@
+# autoconfigure these classes whenever common‑security is on the classpath
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+inventory.common_security.autoconfigure.JWTConfig,\
+inventory.common_security.autoconfigure.SecurityConfiguration

@@ -1,0 +1,32 @@
+# Maven
+/target/
+
+# IntelliJ
+/.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Spring Boot devtools
+spring-boot-devtools.jar
+
+# Others
+*.class
+*.jar
+*.war
+
+# Ignore generated files
+**/target/**

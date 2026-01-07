@@ -1,0 +1,2 @@
+inventory.common_security.autoconfigure.SecurityConfiguration
+inventory.common_security.autoconfigure.JWTConfig
