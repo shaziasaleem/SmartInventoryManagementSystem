@@ -1,4 +1,4 @@
-================================Smart Inventory Management System=======================================
+=================Smart Inventory Management System=====================
 
 A production-style  Spring Boot microservices mono-repo  designed to model a real-world inventory management platform.  
 This project demonstrates  clean architecture, service separation, shared libraries, security design, and backend problem-solving skills .
