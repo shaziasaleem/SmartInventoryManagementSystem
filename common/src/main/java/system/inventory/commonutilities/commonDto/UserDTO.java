@@ -1,8 +1,6 @@
 package system.inventory.commonutilities.commonDto;
 
 
-import java.util.List;
-
 import lombok.Data;
 
 
