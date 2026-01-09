@@ -104,6 +104,18 @@ services:
     networks:
       - kafka-network
 
+  inventory:
+    build:
+      context: ./inventoryService
+    container_name: inventory_service
+    ports:
+      - "8085:8085"
+    depends_on:
+      - kafka
+      - db-product
+    networks:
+      - kafka-network
+
 volumes:
   db-user:
   db-product:
