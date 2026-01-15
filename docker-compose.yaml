@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   zookeeper:
@@ -40,7 +39,7 @@ services:
       - kafka-network
 
   db-user:
-    image: postgres
+    image: postgres:14
     container_name: postgres_user_container
     restart: unless-stopped
     environment:
@@ -51,11 +50,16 @@ services:
       - "5433:5432"
     volumes:
       - db-user:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - kafka-network
 
   db-product:
-    image: postgres
+    image: postgres:14
     container_name: postgres_product_container
     restart: unless-stopped
     environment:
@@ -66,6 +70,49 @@ services:
       - "5434:5432"
     volumes:
       - db-product:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kafka-network
+  db-inventory:
+    image: postgres:14 
+    container_name: postgres_inventory_container
+    restart: unless-stopped 
+    environment:
+      POSTGRES_DB: inventoryServiceDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5435:5432"
+    volumes:
+      - db-inventory:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - kafka-network
+  db-order:
+    image: postgres:14 
+    container_name: postgres_order_container
+    restart: unless-stopped 
+    environment:
+      POSTGRES_DB: orderServiceDb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test
+    ports:
+      - "5436:5432"
+    volumes:
+      - db-order:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
     networks:
       - kafka-network
 
@@ -76,8 +123,10 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - kafka
-      - db-user
+      kafka:
+        condition: service_started
+      db-user:
+        condition: service_healthy
     networks:
       - kafka-network
 
@@ -99,8 +148,10 @@ services:
     ports:
       - "8084:8084"
     depends_on:
-      - kafka
-      - db-product
+      kafka:
+        condition: service_started
+      db-product:
+        condition: service_healthy
     networks:
       - kafka-network
 
@@ -111,14 +162,32 @@ services:
     ports:
       - "8085:8085"
     depends_on:
-      - kafka
-      - db-product
+      kafka:
+        condition: service_started
+      db-inventory:
+        condition: service_healthy
     networks:
       - kafka-network
+  order:
+    build:
+      context: ./orderService
+    container_name: order_service
+    ports:
+      - "8086:8086"
+    depends_on:
+      kafka:
+        condition: service_started
+      db-order:
+        condition: service_healthy
+    networks:
+      - kafka-network
+
 
 volumes:
   db-user:
   db-product:
+  db-inventory:
+  db-order:
 
 networks:
   kafka-network:
