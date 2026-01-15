@@ -1,20 +1,20 @@
 =================Smart Inventory Management System=====================
-
+This project demonstrates how I design and build production-ready backend systems
+using Java 17 and Spring Boot, focusing on clean architecture, security, and scalability.
 A production-style  Spring Boot microservices mono-repo  designed to model a real-world inventory management platform.  
-This project demonstrates  clean architecture, service separation, shared libraries, security design, and backend problem-solving skills .
-
 ---
-
-Project Goals
-
-- Design a scalable inventory system using  microservices architecture 
-- Apply  real-world backend design decisions 
-- Showcase  professional GitHub practices 
-- Demonstrate  problem-solving mindset beyond CRUD 
-
+What This Project Demonstrates
+-Designing scalable backend systems
+-Real-world service separation
+-Production-style security and architecture
+-Backend problem-solving beyond CRUD
+---
+Who This Project Is For
+• Founders and CTOs evaluating backend architecture skills
+• Teams looking for Spring Boot API and database expertise
+• Anyone interested in production-style backend system design
 ---
 Architecture Overview
-
 - Mono-repo containing multiple independent Spring Boot services
 - Each microservice:
   - Owns its database schema
